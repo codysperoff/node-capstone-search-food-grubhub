@@ -11,7 +11,6 @@
         "body-parser": "^1.15.2",
         "express": "^4.12.4",
         "faker": "^4.1.0",
-        "grubhub-api": "0.0.2",
         "mongodb": "^2.2.11",
         "mongoose": "^4.7.1",
         "morgan": "^1.7.0",
