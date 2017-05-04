@@ -1,5 +1,6 @@
 const unirest = require('unirest');
 const events = require('events');
+const GooglePlaces = require('node-googleplaces');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
@@ -81,41 +82,61 @@ var getRestaurants = function (searchTerm) {
     var emitter = new events.EventEmitter();
     console.log("inside getFromActive function");
 
-    var search = new Search('Manhattan, NY');
-    //    after succesfull initial tests activate this line
-    //    var search = new Search(searchTerm);
-
-    search.run({
-        perPage: 15,
-        page: 1
-    }, function (err, results) {
-        console.log("error = ", err);
-        console.log("results = ", results);
-        results.forEach(function (restaurant) {
-            console.log(
-                "Restaurant %s is %d miles away, has a rating of %d",
-                restaurant.name, restaurant.distance, restaurant.grubhubRating
-            );
-
-        });
 
 
-        //        //success scenario
-        //        if (results.ok) {
-        //            results.forEach(function (restaurant) {
-        //                console.log(
-        //                    "Restaurant %s is %d miles away, has a rating of %d",
-        //                    restaurant.name, restaurant.distance, restaurant.grubhubRating
-        //                );
-        //
-        //            });
-        //            emitter.emit('end', results);
-        //        }
-        //        //failure scenario
-        //        else {
-        //            emitter.emit('error', err);
-        //        }
+    const places = new GooglePlaces("AIzaSyCKdEEzcZ3x2jH1pboBqelA4oTBodLo0Cs");
+    const params = {
+        location: '49.250964,-123.102192',
+        radius: 1000
+    };
+
+    // Callback
+    places.nearbySearch(searchTerm, (err, res) => {
+        console.log(res.body);
+        emitter.emit('end', res.body);
+        emitter.emit('error', err);
     });
+
+    // Promise
+    places.nearbySearch(searchTerm).then((res) => {
+        console.log(res.body);
+        emitter.emit('error', err);
+    });
+    ////    var search = new Search('Manhattan, NY');
+    //    //    after succesfull initial tests activate this line
+    //    //    var search = new Search(searchTerm);
+    //
+    //    search.run({
+    //        perPage: 15,
+    //        page: 1
+    //    }, function (err, results) {
+    //        console.log("error = ", err);
+    //        console.log("results = ", results);
+    //        results.forEach(function (restaurant) {
+    //            console.log(
+    //                "Restaurant %s is %d miles away, has a rating of %d",
+    //                restaurant.name, restaurant.distance, restaurant.grubhubRating
+    //            );
+    //
+    //        });
+    //
+    //
+    //        //        //success scenario
+    //        //        if (results.ok) {
+    //        //            results.forEach(function (restaurant) {
+    //        //                console.log(
+    //        //                    "Restaurant %s is %d miles away, has a rating of %d",
+    //        //                    restaurant.name, restaurant.distance, restaurant.grubhubRating
+    //        //                );
+    //        //
+    //        //            });
+    //        //            emitter.emit('end', results);
+    //        //        }
+    //        //        //failure scenario
+    //        //        else {
+    //        //            emitter.emit('error', err);
+    //        //        }
+    //    });
 
     return emitter;
 };
