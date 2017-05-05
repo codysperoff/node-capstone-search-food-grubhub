@@ -70,7 +70,8 @@ function closeServer() {
 }
 
 // if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
+// runs. but we also export the runServer command so other code (for instance,
+//test code) can start the server as needed.
 if (require.main === module) {
     runServer().catch(err => console.error(err));
 };
@@ -86,19 +87,24 @@ var getRestaurants = function (searchTerm) {
 
     const places = new GooglePlaces("AIzaSyCKdEEzcZ3x2jH1pboBqelA4oTBodLo0Cs");
     const params = {
+        key: 'AIzaSyCKdEEzcZ3x2jH1pboBqelA4oTBodLo0Cs',
         location: '49.250964,-123.102192',
         radius: 1000
     };
 
     // Callback
-    places.nearbySearch(searchTerm, (err, res) => {
+    places.nearbySearch({
+        keyword: searchTerm
+    }, (err, res) => {
         console.log(res.body);
         emitter.emit('end', res.body);
         emitter.emit('error', err);
     });
 
     // Promise
-    places.nearbySearch(searchTerm).then((res) => {
+    places.nearbySearch({
+        keyword: searchTerm
+    }).then((res) => {
         console.log(res.body);
         emitter.emit('error', err);
     });
@@ -121,21 +127,21 @@ var getRestaurants = function (searchTerm) {
     //        });
     //
     //
-    //        //        //success scenario
-    //        //        if (results.ok) {
-    //        //            results.forEach(function (restaurant) {
-    //        //                console.log(
-    //        //                    "Restaurant %s is %d miles away, has a rating of %d",
-    //        //                    restaurant.name, restaurant.distance, restaurant.grubhubRating
-    //        //                );
-    //        //
-    //        //            });
-    //        //            emitter.emit('end', results);
-    //        //        }
-    //        //        //failure scenario
-    //        //        else {
-    //        //            emitter.emit('error', err);
-    //        //        }
+    //        //success scenario
+    //        if (results.ok) {
+    //            results.forEach(function (restaurant) {
+    //                console.log(
+    //                    "Restaurant %s is %d miles away, has a rating of %d",
+    //                    restaurant.name, restaurant.distance, restaurant.grubhubRating
+    //                );
+    //
+    //            });
+    //            emitter.emit('end', results);
+    //        }
+    //        //failure scenario
+    //        else {
+    //            emitter.emit('error', err);
+    //        }
     //    });
 
     return emitter;
