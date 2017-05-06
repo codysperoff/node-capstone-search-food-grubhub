@@ -22,10 +22,6 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
-//***********necesarry?***********
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
 app.use(express.static('public'));
 
 mongoose.Promise = global.Promise;
@@ -244,12 +240,11 @@ app.get('/product/:product_name', function (request, response) {
 //        });
 //});
 
-app.use('*', function (req, res) {
-    res.status(404).json({
-        message: 'Not Found'
-    });
-});
-
+//app.use('*', function (req, res) {
+//    res.status(404).json({
+//        message: 'Not Found'
+//    });
+//});
 
 
 

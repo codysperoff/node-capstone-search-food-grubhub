@@ -1,7 +1,7 @@
 {
-    "name": "node-capstone-search-food-grubhub",
+    "name": "node-capstone-search-products-bestbuy",
     "version": "1.0.0",
-    "description": "App to search for taco places",
+    "description": "App to search for tech products",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
