@@ -1,10 +1,9 @@
 const unirest = require('unirest');
 const events = require('events');
-const GooglePlaces = require('node-googleplaces');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
-const activity = require('./models');
+const Product = require('./models');
 
 
 
@@ -23,6 +22,10 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+//***********necesarry?***********
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(express.static('public'));
 
 mongoose.Promise = global.Promise;
@@ -79,91 +82,53 @@ if (require.main === module) {
 
 
 // external API call
-var getRestaurants = function (searchTerm) {
+
+//api call between the server and best buy api
+var getProducts = function (product_name) {
+
+    //console.log("inside the getProducts function");
+
     var emitter = new events.EventEmitter();
-    console.log("inside getFromActive function");
 
-
-
-    const places = new GooglePlaces("AIzaSyCKdEEzcZ3x2jH1pboBqelA4oTBodLo0Cs");
-    const params = {
-        key: 'AIzaSyCKdEEzcZ3x2jH1pboBqelA4oTBodLo0Cs',
-        location: '49.250964,-123.102192',
-        radius: 1000
-    };
-
-    // Callback
-    places.nearbySearch({
-        keyword: searchTerm
-    }, (err, res) => {
-        console.log(res.body);
-        emitter.emit('end', res.body);
-        emitter.emit('error', err);
+    //https://www.npmjs.com/package/bestbuy
+    var bby = require('bestbuy')('ccw7r1Dxrz9wNwgQuNWLOKqZ');
+    bby.products('(search=' + product_name + ')', {
+        pageSize: 10
+    }, function (err, data) {
+        if (err) {
+            console.warn(err);
+            emitter.emit('api call retuned error:', err);
+        } else if (data.total === 0) {
+            console.log('No products found');
+            emitter.emit('No products found', err);
+        } else {
+            console.log('Found %d products. First match "%s" is $%d', data.total, data.products[0].name, data.products[0].salePrice);
+            emitter.emit('end', data);
+        }
     });
-
-    // Promise
-    places.nearbySearch({
-        keyword: searchTerm
-    }).then((res) => {
-        console.log(res.body);
-        emitter.emit('error', err);
-    });
-    ////    var search = new Search('Manhattan, NY');
-    //    //    after succesfull initial tests activate this line
-    //    //    var search = new Search(searchTerm);
-    //
-    //    search.run({
-    //        perPage: 15,
-    //        page: 1
-    //    }, function (err, results) {
-    //        console.log("error = ", err);
-    //        console.log("results = ", results);
-    //        results.forEach(function (restaurant) {
-    //            console.log(
-    //                "Restaurant %s is %d miles away, has a rating of %d",
-    //                restaurant.name, restaurant.distance, restaurant.grubhubRating
-    //            );
-    //
-    //        });
-    //
-    //
-    //        //success scenario
-    //        if (results.ok) {
-    //            results.forEach(function (restaurant) {
-    //                console.log(
-    //                    "Restaurant %s is %d miles away, has a rating of %d",
-    //                    restaurant.name, restaurant.distance, restaurant.grubhubRating
-    //                );
-    //
-    //            });
-    //            emitter.emit('end', results);
-    //        }
-    //        //failure scenario
-    //        else {
-    //            emitter.emit('error', err);
-    //        }
-    //    });
 
     return emitter;
 };
 
 // local API endpoints
-app.get('/get-restaurants/:location', function (req, res) {
+app.get('/product/:product_name', function (request, response) {
+    //console.log(request.params.product_name);
+    if (request.params.product_name == "") {
+        response.json("Specify a product name");
+    } else {
+        var productDetails = getProducts(request.params.product_name);
 
-    //    external api function call and response
+        //get the data from the first api call
+        productDetails.on('end', function (item) {
+            //console.log(item);
+            response.json(item);
+        });
 
-    var searchReq = getRestaurants(req.params.location);
-
-    //get the data from the first api call
-    searchReq.on('end', function (item) {
-        res.json(item);
-    });
-
-    //error handling
-    searchReq.on('error', function (code) {
-        res.sendStatus(code);
-    });
-
+        //error handling
+        productDetails.on('error', function (code) {
+            response.sendStatus(code);
+        });
+    }
 });
 //
 //app.get('/posts', (req, res) => {
@@ -289,6 +254,10 @@ app.use('*', function (req, res) {
 
 
 
+
+exports.app = app;
+exports.runServer = runServer;
+app.listen(process.env.PORT, process.env.IP);
 
 module.exports = {
     runServer,
