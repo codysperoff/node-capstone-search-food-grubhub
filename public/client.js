@@ -2,9 +2,7 @@
 $(document).on('submit', "#search-form", function (key) {
     key.preventDefault();
     var userInput = $('#search-section').val();
-    // console.log(userInput);
     getResults(userInput);
-    // $('#search-section').val('');
 });
 
 //function to get results from api
