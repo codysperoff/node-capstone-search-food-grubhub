@@ -1,2 +1,61 @@
-font-family: 'Roboto',
-sans-serif;
+/* CSS reset*/
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    /*The box-sizing property is used to tell the browser what the sizing properties (width and height) should include border-box.*/
+    box-sizing: border-box;
+    /*reset Chrome user agent styles*/
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-before: 0px;
+    -webkit-padding-after: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-padding-end: 0px;
+    border: 1px solid black;
+}
+
+
+/*General Styles*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    background-color: dodgerblue;
+    border: 1px solid black;
+}
+
+
+/*Header Styles*/
+
+header {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+header img {
+    width: 20%;
+}
+
+h1 {
+    font-size: xx-large;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+/*Content Styles*/
+
+section{
+    background-color: white;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+}

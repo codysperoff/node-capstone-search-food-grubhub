@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 
 const {
-    BlogPost
+    Product
 } = require('../models');
 const {
     app,
