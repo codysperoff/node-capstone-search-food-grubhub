@@ -16,7 +16,7 @@
     -webkit-padding-after: 0px;
     -webkit-padding-start: 0px;
     -webkit-padding-end: 0px;
-    border: 1px solid black;
+    /*    border: 1px solid black;*/
 }
 
 
@@ -26,6 +26,16 @@ body {
     font-family: 'Roboto', sans-serif;
     color: black;
     background-color: dodgerblue;
+}
+
+main {
+    background-color: white;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    margin-top: 30px;
     border: 1px solid black;
 }
 
@@ -33,6 +43,7 @@ body {
 /*Header Styles*/
 
 header {
+    background-color: honeydew;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -50,12 +61,21 @@ h2 {
     font-size: x-large;
 }
 
+
 /*Content Styles*/
 
-section{
-    background-color: white;
-    width: 80%;
+section {
+    padding: 20px;
+}
+
+.input {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+}
 
+#search-section {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
 }
