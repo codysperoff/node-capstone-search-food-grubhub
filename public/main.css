@@ -117,11 +117,15 @@ section {
     width: 100%;
 }
 
+.favorites {
+    width: 10%;
+}
+
 
 /*Footer Styles*/
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     background-color: honeydew;
