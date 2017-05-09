@@ -3,6 +3,7 @@ $(document).on('submit', "#search-form", function (key) {
     key.preventDefault();
     var userInput = $('#search-section').val();
     getResults(userInput);
+
 });
 
 //function to get results from api
@@ -29,6 +30,7 @@ function getResults(query) {
                 } else {
                     output = 'Unable to access products (see browser console for more information)';
                 }
+                $(".results").show();
                 $('.results ul').html(output);
             }
 
@@ -102,3 +104,7 @@ function resultsIntoListItem(output, product) {
     output += '</li>';
     return output;
 }
+
+$(document).ready(function () {
+    $(".results").hide();
+})

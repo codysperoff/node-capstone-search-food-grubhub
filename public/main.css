@@ -26,17 +26,17 @@ body {
     font-family: 'Roboto', sans-serif;
     color: black;
     background-color: dodgerblue;
+    position: relative;
+    height: 100%;
 }
 
 main {
-    background-color: white;
-    width: 80%;
+    background-color: dodgerblue;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 5px;
     margin-bottom: 30px;
-    margin-top: 30px;
-    border: 1px solid black;
+    /*    border: 1px solid black;*/
 }
 
 
@@ -65,10 +65,13 @@ h2 {
 /*Content Styles*/
 
 section {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80%;
+    background-color: white;
     padding: 20px;
-}
-
-.input {
+    margin-top: 20px;
+    margin-bottom: 60px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -78,4 +81,65 @@ section {
     border: 1px solid black;
     border-radius: 5px;
     width: 100%;
+    padding: 5px;
 }
+
+#search-form button {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+#search-form button:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
+.results {
+    margin-top: -20px;
+}
+
+.results ul li {
+    display: inline-block;
+    width: 47%;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 1%;
+    margin-left: 1%;
+    vertical-align: top;
+}
+
+.results ul li img {
+    width: 100%;
+}
+
+
+/*Footer Styles*/
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: honeydew;
+    padding: 10px;
+}
+
+footer ul {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: center;
+}
+
+footer ul li {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    width: 24.5%
+}
+
+
+/*media queries*/
