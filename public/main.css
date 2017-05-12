@@ -91,7 +91,8 @@ section {
 }
 
 #search-form button:hover {
-    background-color: lightgreen;
+    color: yellow;
+    background-color: black;
     cursor: pointer;
 }
 
@@ -146,7 +147,6 @@ section {
 
 .favorites-container ul li {
     margin-top: 10px;
-    color: black;
 }
 
 .favorites-container .delete-favorites {
@@ -166,10 +166,14 @@ section {
 }
 
 .favorites-container .delete-favorites img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     padding: 0;
     margin: 0;
+}
+
+.favorites-container .delete-favorites button:hover {
+    cursor: pointer;
 }
 
 
