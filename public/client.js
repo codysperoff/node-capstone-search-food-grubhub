@@ -105,6 +105,99 @@ function resultsIntoListItem(output, product) {
     return output;
 }
 
+//clicking the favorites to add the product
+$(document).on('click', ".favorites", function (key) {
+
+    var favoriteProductName = $(this).closest('.add-product-to-favorites').find('input').val();
+    //console.log("inside favProductName", favoriteProductName);
+    addFavoriteProduct(favoriteProductName);
+});
+
+//clicking the favorites to delete the favorites
+$(document).on('click', ".delete-favorites", function (key) {
+    deleteFavorites();
+});
+
+//function to add items
+function addFavoriteProduct(favoriteProductName) {
+
+    console.log(favoriteProductName);
+
+    var favoriteProduct = {
+        'productName': favoriteProductName
+    };
+
+    console.log(favoriteProduct);
+
+    $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(favoriteProduct),
+            url: '/favorite-product/'
+        })
+        .done(function (product) {
+            getFavoriteProducts();
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+//function to delete favorites
+function deleteFavorites() {
+    console.log("inside delete favorites");
+    $.ajax({
+            method: 'DELETE',
+            dataType: 'json',
+            url: '/delete-favorites/',
+        })
+        .done(function (product) {
+            getFavoriteProducts();
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+//function to get the favorite product
+function getFavoriteProducts() {
+
+    $.ajax({
+            method: 'GET',
+            dataType: 'json',
+            url: '/favorite-products',
+        })
+        .done(function (products) {
+            console.log(products);
+
+            var buildTheHtmlOutput = "";
+
+            $.each(products, function (productsKey, productsValue) {
+                buildTheHtmlOutput += "<li>" + productsValue.name + "</li>";
+            });
+
+            //use the HTML output to show it in the index.html
+            $(".favorites-container ul").html(buildTheHtmlOutput);
+
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+
+
 $(document).ready(function () {
+    getFavoriteProducts();
     $(".results").hide();
 })

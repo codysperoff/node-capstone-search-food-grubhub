@@ -1,5 +1,3 @@
-/* CSS reset*/
-
 * {
     margin: 0;
     padding: 0;
@@ -118,7 +116,60 @@ section {
 }
 
 .favorites {
-    width: 10%;
+    width: 8%;
+}
+
+.favorites-container {
+    background-image: url("../images/transparent.jpg");
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 20%;
+    color: white;
+    /* text-align: left; */
+    font-size: 10px;
+    z-index: 1000;
+    border: 2px gray solid;
+    border-radius: 7px;
+    padding: 10px;
+    text-align: center;
+    max-height: 150px;
+    min-width: 150px;
+    overflow-y: auto;
+}
+
+.favorites-container ul {
+    list-style-type: decimal;
+    text-align: left;
+    margin: 0 15px;
+}
+
+.favorites-container ul li {
+    margin-top: 10px;
+    color: black;
+}
+
+.favorites-container .delete-favorites {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.favorites-container .delete-favorites button {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    width: 14px;
+    height: 14px;
+}
+
+.favorites-container .delete-favorites img {
+    max-width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
 }
 
 
@@ -143,8 +194,16 @@ footer ul li {
     margin-left: auto;
     margin-right: auto;
     display: inline-block;
-    width: 24.5%
+    width: 22.5%
 }
 
 
 /*media queries*/
+
+@media only screen and (max-width: 800px) {
+    .results ul li {
+        /*these 2 work toghether*/
+        display: block;
+        width: 100%;
+    }
+}
