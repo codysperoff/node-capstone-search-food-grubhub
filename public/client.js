@@ -211,6 +211,7 @@ function getFavoriteProducts() {
             $.each(products, function (productsKey, productsValue) {
 
                 buildTheHtmlOutput += "<li>";
+                buildTheHtmlOutput += productsValue.name;
                 buildTheHtmlOutput += "<div class='deleteFavorite'>";
                 buildTheHtmlOutput += "<form class='deleteFavoriteValue'>";
                 buildTheHtmlOutput += "<input type='hidden' class='deleteFavoriteValueInput' value='" + productsValue._id + "'>";
@@ -219,7 +220,6 @@ function getFavoriteProducts() {
                 buildTheHtmlOutput += "</button>";
                 buildTheHtmlOutput += "</form>";
                 buildTheHtmlOutput += "</div>";
-                buildTheHtmlOutput += productsValue.name;
                 buildTheHtmlOutput += "</li>";
             });
 

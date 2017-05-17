@@ -1,217 +1,227 @@
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    /*The box-sizing property is used to tell the browser what the sizing properties (width and height) should include border-box.*/
-    box-sizing: border-box;
-    /*reset Chrome user agent styles*/
-    -webkit-margin-before: 0px;
-    -webkit-margin-after: 0px;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-before: 0px;
-    -webkit-padding-after: 0px;
-    -webkit-padding-start: 0px;
-    -webkit-padding-end: 0px;
-    /*    border: 1px solid black;*/
-}
-
-
-/*General Styles*/
-
-body {
-    font-family: 'Roboto', sans-serif;
-    color: black;
-    background-color: dodgerblue;
-    position: relative;
-    height: 100%;
-}
-
-main {
-    background-color: dodgerblue;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-    margin: 0 auto 0px;
-    /*    border: 1px solid black;*/
-}
-
-button {
-    background-color: transparent;
-}
-
-
-/*Header Styles*/
-
-header {
-    background-color: honeydew;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-header img {
-    width: 20%;
-}
-
-h1 {
-    font-size: xx-large;
-}
-
-h2 {
-    font-size: x-large;
-}
-
-
-/*Content Styles*/
-
-section {
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 80%;
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 60px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-#search-section {
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 100%;
-    padding: 5px;
-}
-
-#search-form button {
-    margin-top: 15px;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: yellow;
-}
-
-#search-form button:hover {
-    color: yellow;
-    background-color: black;
-    cursor: pointer;
-}
-
-.results {
-    margin-top: -20px;
-}
-
-.results ul li {
-    display: inline-block;
-    width: 47%;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    margin-right: 1%;
-    margin-left: 1%;
-    vertical-align: top;
-}
-
-.results ul li img {
-    width: 100%;
-}
-
-.favorites {
-    width: 8%;
-}
-
-.favorites-container {
-    background-image: url("../images/transparent.jpg");
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    width: 20%;
-    color: white;
-    /* text-align: left; */
-    font-size: 10px;
-    z-index: 1000;
-    border: 2px gray solid;
-    border-radius: 7px;
-    padding: 10px;
-    text-align: center;
-    max-height: 150px;
-    min-width: 150px;
-    overflow-y: auto;
-}
-
-.favorites-container ul {
-    list-style-type: decimal;
-    text-align: left;
-    margin: 0 15px;
-}
-
-.favorites-container ul li {
-    margin-top: 10px;
-}
-
-.favorites-container .delete-favorites {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 3px;
-    margin-left: 3px;
-}
-
-.favorites-container .delete-favorites button {
-    padding: 0;
-    border: 0;
-    margin: 0;
-    width: 14px;
-    height: 14px;
-}
-
-.favorites-container .delete-favorites img {
-    width: 100%;
-    height: auto;
-    padding: 0;
-    margin: 0;
-}
-
-.favorites-container .delete-favorites button:hover {
-    cursor: pointer;
-}
-
-
-/*Footer Styles*/
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: honeydew;
-    padding: 10px;
-}
-
-footer ul {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    text-align: center;
-}
-
-footer ul li {
-    margin-left: auto;
-    margin-right: auto;
-    display: inline-block;
-    width: 22.5%
-}
-
-
-/*media queries*/
-
-@media only screen and (max-width: 800px) {
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        /*The box-sizing property is used to tell the browser what the sizing properties (width and height) should include border-box.*/
+        box-sizing: border-box;
+        /*reset Chrome user agent styles*/
+        -webkit-margin-before: 0px;
+        -webkit-margin-after: 0px;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-before: 0px;
+        -webkit-padding-after: 0px;
+        -webkit-padding-start: 0px;
+        -webkit-padding-end: 0px;
+        /*    border: 1px solid black;*/
+    }
+    /*General Styles*/
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: black;
+        background-color: dodgerblue;
+        position: relative;
+        height: 100%;
+    }
+    
+    main {
+        background-color: dodgerblue;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        margin: 0 auto 0px;
+        /*    border: 1px solid black;*/
+    }
+    
+    button {
+        background-color: transparent;
+    }
+    /*Header Styles*/
+    
+    header {
+        background-color: honeydew;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    
+    header img {
+        width: 20%;
+    }
+    
+    h1 {
+        font-size: xx-large;
+    }
+    
+    h2 {
+        font-size: x-large;
+    }
+    /*Content Styles*/
+    
+    section {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 80%;
+        background-color: white;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    
+    #search-section {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 100%;
+        padding: 5px;
+    }
+    
+    #search-form button {
+        margin-top: 15px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: yellow;
+    }
+    
+    #search-form button:hover {
+        color: yellow;
+        background-color: black;
+        cursor: pointer;
+    }
+    
+    .results {
+        margin-top: -20px;
+    }
+    
     .results ul li {
-        /*these 2 work toghether*/
-        display: block;
+        display: inline-block;
+        width: 47%;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        margin-right: 1%;
+        margin-left: 1%;
+        vertical-align: top;
+    }
+    
+    .results ul li img {
         width: 100%;
     }
-}
+    
+    .favorites {
+        width: 8%;
+    }
+    
+    .favorites-container {
+        background-image: url("../images/transparent.jpg");
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        width: 20%;
+        color: white;
+        /* text-align: left; */
+        font-size: 10px;
+        z-index: 1000;
+        border: 2px gray solid;
+        border-radius: 7px;
+        padding: 10px;
+        text-align: center;
+        max-height: 150px;
+        min-width: 150px;
+        overflow-y: auto;
+    }
+    
+    .favorites-container ul {
+        list-style-type: decimal;
+        text-align: left;
+        margin: 0 15px;
+    }
+    
+    .favorites-container ul li {
+        margin-top: 20px;
+    }
+    
+    .favorites-container .delete-favorites {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 3px;
+        margin-left: 3px;
+    }
+    
+    .favorites-container .delete-favorites button {
+        padding: 0;
+        border: 0;
+        margin: 0;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .favorites-container .delete-favorites img {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .favorites-container .delete-favorites button:hover {
+        cursor: pointer;
+    }
+    
+    .deleteFavoriteButton {
+        width: auto;
+        float: right;
+        margin-top: -14px;
+        top: 0;
+        right: 0;
+    }
+    
+    .delete-favorite-icon {
+        width: 15px;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+    
+    .deleteFavoriteButton:hover {
+        cursor: pointer;
+    }
+    /*Footer Styles*/
+    
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: honeydew;
+        padding: 10px;
+    }
+    
+    footer ul {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        text-align: center;
+    }
+    
+    footer ul li {
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
+        width: 22.5%
+    }
+    /*media queries*/
+    
+    @media only screen and (max-width: 800px) {
+        .results ul li {
+            /*these 2 work toghether*/
+            display: block;
+            width: 100%;
+        }
+    }
