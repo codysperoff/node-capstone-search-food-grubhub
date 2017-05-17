@@ -113,9 +113,18 @@ $(document).on('click', ".favorites", function (key) {
     addFavoriteProduct(favoriteProductName);
 });
 
-//clicking the favorites to delete the favorites
+//clicking the favorites to delete the entire favorites list
 $(document).on('click', ".delete-favorites", function (key) {
     deleteFavorites();
+});
+
+//clicking the favorites to delete an item on the list
+$(document).on('click', ".deleteFavorite", function (key) {
+    event.preventDefault();
+    var favoritesIdToDelete = $(this).parent().find('.deleteFavoriteValueInput').val();
+
+
+    deleteOneFavorite(favoritesIdToDelete);
 });
 
 //function to add items
@@ -147,13 +156,33 @@ function addFavoriteProduct(favoriteProductName) {
         });
 }
 
-//function to delete favorites
+//function to delete favorites list
 function deleteFavorites() {
     console.log("inside delete favorites");
     $.ajax({
             method: 'DELETE',
             dataType: 'json',
             url: '/delete-favorites/',
+        })
+        .done(function (product) {
+            getFavoriteProducts();
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+//function to delete one item from favorites
+function deleteOneFavorite(favoritesIdToDelete) {
+    console.log("inside delete one favorite");
+
+    $.ajax({
+            method: 'DELETE',
+            dataType: 'json',
+            url: '/delete-one-favorite/' + favoritesIdToDelete,
         })
         .done(function (product) {
             getFavoriteProducts();
@@ -180,7 +209,18 @@ function getFavoriteProducts() {
             var buildTheHtmlOutput = "";
 
             $.each(products, function (productsKey, productsValue) {
-                buildTheHtmlOutput += "<li>" + productsValue.name + "</li>";
+
+                buildTheHtmlOutput += "<li>";
+                buildTheHtmlOutput += "<div class='deleteFavorite'>";
+                buildTheHtmlOutput += "<form class='deleteFavoriteValue'>";
+                buildTheHtmlOutput += "<input type='hidden' class='deleteFavoriteValueInput' value='" + productsValue._id + "'>";
+                buildTheHtmlOutput += "<button type='submit' class='deleteFavoriteButton'>";
+                buildTheHtmlOutput += "<img src='/images/delete-favorites.png' class='delete-favorite-icon'>";
+                buildTheHtmlOutput += "</button>";
+                buildTheHtmlOutput += "</form>";
+                buildTheHtmlOutput += "</div>";
+                buildTheHtmlOutput += productsValue.name;
+                buildTheHtmlOutput += "</li>";
             });
 
             //use the HTML output to show it in the index.html

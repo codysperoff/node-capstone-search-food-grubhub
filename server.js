@@ -161,6 +161,16 @@ app.delete('/delete-favorites', function (req, res) {
         res.status(200).json(items);
     });
 });
+app.delete('/delete-one-favorite/:favoritesId', function (req, res) {
+    Product.findByIdAndRemove(req.params.favoritesId, function (err, items) {
+        if (err)
+            return res.status(404).json({
+                message: 'Item not found.'
+            });
+
+        res.status(201).json(items);
+    });
+});
 
 
 exports.app = app;
