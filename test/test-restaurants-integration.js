@@ -32,7 +32,7 @@ function seedBlogPostData() {
         seedData.push(generateBlogPostData());
     }
     // this will return a promise
-    return BlogPost.insertMany(seedData);
+    return Product.insertMany(seedData);
 }
 
 // used to generate data to put in db
@@ -85,9 +85,7 @@ describe('Restaurants API resource', function () {
         return runServer(TEST_DATABASE_URL);
     });
 
-    beforeEach(function () {
-        return seedBlogPostData();
-    });
+    beforeEach(function () {});
 
     afterEach(function () {
         return tearDownDb();
@@ -99,59 +97,15 @@ describe('Restaurants API resource', function () {
 
     describe('GET endpoint', function () {
 
-        it('should return all existing blog posts', function () {
-            // strategy:
-            //    1. get back all posts returned by by GET request to `/posts`
-            //    2. prove res has right status, data type
-            //    3. prove the number of posts we got back is equal to number
-            //       in db.
-            //
-            // need to have access to mutate and access `res` across
-            // `.then()` calls below, so declare it here so can modify in place
-            let res;
-            return chai.request(app)
-                .get('/posts')
-                .then(function (_res) {
-                    // so subsequent .then blocks can access resp obj.
-                    res = _res;
-                    res.should.have.status(200);
-                    // otherwise our db seeding didn't work
-                    //                    res.body.posts.should.have.length.of.at.least(1);
-                    return BlogPost.count();
-                })
-                .then(function (count) {
-                    //                    res.body.posts.should.have.length.of(count);
-                });
-        });
-
-
-        it('should return blog posts with right fields', function () {
-            // Strategy: Get back all posts, and ensure they have expected keys
-
-            let resPost;
-            return chai.request(app)
-                .get('/posts')
-                .then(function (res) {
+        it('GET should return all favorites', function (done) {
+            chai.request(app)
+                .get('/favorite-products')
+                .end(function (err, res) {
+                    should.equal(err, null);
                     res.should.have.status(200);
                     res.should.be.json;
-                    //                    res.body.posts.should.be.a('array');
-                    //                    res.body.posts.should.have.length.of.at.least(1);
-
-                    //                    res.body.posts.forEach(function (post) {
-                    //                        post.should.be.a('object');
-                    //                        post.should.include.keys(
-                    //                            'id', 'title', 'content', 'author', 'created');
-                    //                    });
-                    //                    resPost = res.body.posts[0];
-                    //                    return BlogPost.findById(resPost.id);
-                })
-                .then(function (post) {
-
-                    //                    resPost.id.should.equal(post.id);
-                    //                    resPost.title.should.equal(post.title);
-                    //                    resPost.content.should.equal(post.content);
-                    //                    resPost.author.should.equal(post.author);
-                    //                    resPost.created.should.contain(post.created);
+                    res.body.should.be.a('array');
+                    done();
                 });
         });
     });
@@ -161,73 +115,23 @@ describe('Restaurants API resource', function () {
         // then prove that the blog post we get back has
         // right keys, and that `id` is there (which means
         // the data was inserted into db)
-        it('should add a new blog post', function () {
 
-            const newBlogPost = generateBlogPostData();
 
-            return chai.request(app)
-                .post('/posts')
-                .send(newBlogPost)
-                .then(function (res) {
+        it('should add a new favorite', function (done) {
+            chai.request(app)
+                .post('/favorite-product')
+                .send({
+                    'name': 'iPad Case'
+                })
+                .end(function (err, res) {
+                    should.equal(err, null);
                     res.should.have.status(201);
                     res.should.be.json;
                     res.body.should.be.a('object');
-                    res.body.should.include.keys(
-                        'id', 'title', 'content', 'author', 'created');
-                    res.body.title.should.equal(newBlogPost.title);
-                    // cause Mongo should have created id on insertion
-                    res.body.id.should.not.be.null;
-                    res.body.content.should.equal(newBlogPost.content);
-                    //                    res.body.author.should.equal(newBlogPost.author);
-                    return BlogPost.findById(res.body.id);
-                })
-                .then(function (post) {
-                    //                    post.title.should.equal(newRestaurant.title);
-                    //                    post.content.should.equal(newRestaurant.content);
-                    //                    post.author.should.equal(newBlogPost.author);
-                    //                    post.name.should.equal(newRestaurant.name);
-                    //                    post.grade.should.equal(mostRecentGrade);
-                    //                    post.address.building.should.equal(newRestaurant.address.building);
-                    //                    post.address.street.should.equal(newRestaurant.address.street);
-                    //                    post.address.zipcode.should.equal(newRestaurant.address.zipcode);
+                    res.body.should.have.property('_id');
+                    res.body._id.should.be.a('string');
+                    done();
                 });
-        });
-    });
-
-    describe('PUT endpoint', function () {
-
-        // strategy:
-        //  1. Get an existing blog post from db
-        //  2. Make a PUT request to update that blog post
-        //  3. Prove blog post returned by request contains data we sent
-        //  4. Prove blog post in db is correctly updated
-        it('should update fields you send over', function () {
-            const updateData = {
-                title: 'fofofofofofofof',
-                content: 'futuristic fusion'
-            };
-
-            return BlogPost
-                .findOne()
-                .exec()
-                .then(function (post) {
-                    updateData.id = post.id;
-
-                    // make request then inspect it to make sure it reflects
-                    // data we sent
-                    return chai.request(app)
-                        .put(`/posts/${post.id}`)
-                        .send(updateData);
-                })
-                .then(function (res) {
-                    res.should.have.status(204);
-
-                    return BlogPost.findById(updateData.id).exec();
-                })
-            //                .then(function (restaurant) {
-            //                    restaurant.name.should.equal(updateData.name);
-            //                    restaurant.cuisine.should.equal(updateData.cuisine);
-            //                });
         });
     });
 
@@ -237,28 +141,31 @@ describe('Restaurants API resource', function () {
         //  2. make a DELETE request for that blog post's id
         //  3. assert that response has right status code
         //  4. prove that blog post with the id doesn't exist in db anymore
-        it('delete a blog post by id', function () {
+        it('should delete ONE item on DELETE', function () {
 
             let post;
 
-            return BlogPost
+            return Product
                 .findOne()
                 .exec()
                 .then(function (_post) {
                     post = _post;
-                    return chai.request(app).delete(`/posts/${post.id}`);
+                    return chai.request(app).delete(`/delete-one-favorite/${post.id}`);
                 })
                 .then(function (res) {
-                    res.should.have.status(204);
-                    return BlogPost.findById(post.id).exec();
+                    res.should.have.status(201);
+                    //                    return BlogPost.findById(post.id).exec();
                 })
-            //                .then(function (_restaurant) {
-            //                    // when a variable's value is null, chaining `should`
-            //                    // doesn't work. so `_restaurant.should.be.null` would raise
-            //                    // an error. `should.be.null(_restaurant)` is how we can
-            //                    // make assertions about a null value.
-            //                    should.not.exist(_restaurant);
-            //                });
         });
+
+        it('should delete ALL items on DELETE', function (done) {
+            chai.request(app)
+                .delete('/delete-favorites')
+                .end(function (err, res) {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+
     });
 });
