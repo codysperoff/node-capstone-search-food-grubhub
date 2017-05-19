@@ -16,11 +16,11 @@ Thinkful (https://www.thinkful.com) Unit 2 Capstone Project - Node.js app integr
 
 ## Background
 
-I built this app because I am a runner and I am frequently looking for races in my area.
+I built this app because I wanted to search for things on bestbuy, without all of the pop-windows and advertisements that come with the site.
 
 ## Use Case
 
-This app gives runners access to running events within a 50 mile radius from a chosen city in the US.
+This app gives users the ability to search for items they want and add them directly to a bestbuy shopping cart.
 
 ## Initial UX
 
