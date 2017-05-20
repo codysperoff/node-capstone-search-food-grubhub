@@ -1,7 +1,7 @@
-Blog app challenge solution
+# Blog app challenge solution
 ==========================
 
-# Tech Products Search powered by bestbuy.com
+## Tech Products Search powered by bestbuy.com
 Thinkful (https://www.thinkful.com) Unit 2 Capstone Project - Node.js app integrating with *bestbuy.com*'s API
 
 ### Home Page

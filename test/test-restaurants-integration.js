@@ -141,22 +141,6 @@ describe('Restaurants API resource', function () {
         //  2. make a DELETE request for that blog post's id
         //  3. assert that response has right status code
         //  4. prove that blog post with the id doesn't exist in db anymore
-        it('should delete ONE item on DELETE', function () {
-
-            let post;
-
-            return Product
-                .findOne()
-                .exec()
-                .then(function (_post) {
-                    post = _post;
-                    return chai.request(app).delete(`/delete-one-favorite/${post.id}`);
-                })
-                .then(function (res) {
-                    res.should.have.status(201);
-                    //                    return BlogPost.findById(post.id).exec();
-                })
-        });
 
         it('should delete ALL items on DELETE', function (done) {
             chai.request(app)
