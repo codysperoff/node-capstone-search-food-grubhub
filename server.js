@@ -175,7 +175,7 @@ app.delete('/delete-one-favorite/:favoritesId', function (req, res) {
 
 exports.app = app;
 exports.runServer = runServer;
-app.listen(process.env.PORT, process.env.IP);
+app.listen(PORT);
 
 module.exports = {
     runServer,
