@@ -34,10 +34,11 @@ mongoose.Promise = global.Promise;
 let server;
 
 // this function connects to our database, then starts the server
-function runServer(databaseUrl = DATABASE_URL, port = PORT) {
+function runServer(databaseUrl = 'mongodb://admin:admin@ds119081.mlab.com:19081/node-capstone-search-food-grubhub', port = PORT) {
     return new Promise((resolve, reject) => {
         mongoose.connect(databaseUrl, err => {
             if (err) {
+                console.log(err);
                 return reject(err);
             }
             server = app.listen(port, () => {
