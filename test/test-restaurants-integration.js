@@ -14,7 +14,7 @@ const {
     closeServer
 } = require('../server');
 const {
-    TEST_DATABASE_URL
+    DATABASE_URL
 } = require('../config');
 
 chai.use(chaiHttp);
