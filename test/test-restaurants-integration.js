@@ -75,7 +75,7 @@ function tearDownDb() {
     return mongoose.connection.dropDatabase();
 }
 
-describe('Restaurants API resource', function () {
+describe('Restaurants API resource', function (TEST_DATABASE_URL) {
 
     // we need each of these hook functions to return a promise
     // otherwise we'd need to call a `done` callback. `runServer`,
