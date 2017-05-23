@@ -34,24 +34,29 @@ mongoose.Promise = global.Promise;
 let server;
 
 // this function connects to our database, then starts the server
-function runServer(databaseUrl = 'mongodb://admin:admin@ds119081.mlab.com:19081/node-capstone-search-food-grubhub', port = PORT) {
-    return new Promise((resolve, reject) => {
-        mongoose.connect(databaseUrl, err => {
-            if (err) {
-                console.log(err);
-                return reject(err);
+var runServer = function (callback) {
+    mongoose.connect(config.DATABASE_URL, function (err) {
+        if (err && callback) {
+            return callback(err);
+        }
+
+        app.listen(config.PORT, function () {
+            console.log('Listening on localhost:' + config.PORT);
+            if (callback) {
+                callback();
             }
-            server = app.listen(port, () => {
-                    console.log(`Your app is listening on port ${port}`);
-                    resolve();
-                })
-                .on('error', err => {
-                    mongoose.disconnect();
-                    reject(err);
-                });
         });
     });
-}
+};
+
+if (require.main === module) {
+    runServer(function (err) {
+        if (err) {
+            console.error(err);
+        }
+    });
+};
+
 
 // this function closes the server, and returns a promise. we'll
 // use it in our integration tests later.
