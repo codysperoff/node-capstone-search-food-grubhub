@@ -30,7 +30,7 @@ The initial mobile and desktop wireframes can be seen below:
 
 ## Working Prototype
 
-You can access a working prototype of the app here: https://find-and-register-for-events.herokuapp.com/
+You can access a working prototype of the app here: https://node-capstone-search-bestbuy.herokuapp.com/
 
 ## Functionality
 The app's functionality includes:
