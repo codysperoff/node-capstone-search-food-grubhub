@@ -10,10 +10,7 @@ const Product = require('./models');
 const express = require('express');
 const morgan = require('morgan');
 
-const {
-    DATABASE_URL,
-    PORT
-} = require('./config');
+
 const {
     BlogPost
 } = require('./models');
